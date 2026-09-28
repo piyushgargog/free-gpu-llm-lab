@@ -1,0 +1,101 @@
+name: Experiment / benchmark report
+description: Report a new experiment, a re-run of an existing one, or a benchmark result.
+title: "[Experiment] "
+labels: ["experiment"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        See `CONTRIBUTING.md` for the benchmark-honesty rules this repo
+        follows: no fabricated numbers, and clearly label results as
+        **measured**, **externally verified**, **inferred/hypothesized**,
+        or **not yet run**.
+
+  - type: input
+    id: model
+    attributes:
+      label: Model
+      placeholder: e.g. Muse-Glimmer-30B-Q4_K_M
+    validations:
+      required: true
+
+  - type: input
+    id: quantization
+    attributes:
+      label: Quantization
+      placeholder: e.g. Q4_K_M, NF4, GPTQ-Int4, BF16
+    validations:
+      required: true
+
+  - type: input
+    id: hardware
+    attributes:
+      label: Hardware
+      placeholder: e.g. 2x Tesla T4 (Kaggle)
+    validations:
+      required: true
+
+  - type: input
+    id: gpu-count
+    attributes:
+      label: GPU count
+      placeholder: e.g. 1 or 2
+    validations:
+      required: true
+
+  - type: input
+    id: backend
+    attributes:
+      label: Backend
+      placeholder: e.g. llama.cpp (commit/build), transformers + bitsandbytes
+    validations:
+      required: true
+
+  - type: input
+    id: software-versions
+    attributes:
+      label: Software versions
+      placeholder: e.g. llama.cpp 0.5.0-dev build 1 commit 81ef10e / torch 2.11.0+cu128
+    validations:
+      required: true
+
+  - type: textarea
+    id: command
+    attributes:
+      label: Exact command / configuration
+      render: shell
+    validations:
+      required: true
+
+  - type: input
+    id: prompt-tps
+    attributes:
+      label: Measured prompt tok/s (leave blank if not measured)
+    validations:
+      required: false
+
+  - type: input
+    id: gen-tps
+    attributes:
+      label: Measured generation tok/s (leave blank if not measured)
+    validations:
+      required: false
+
+  - type: dropdown
+    id: reproduced
+    attributes:
+      label: Has this result been reproduced with a second run?
+      options:
+        - "Yes — verified with a second identical run"
+        - "No — single run only"
+        - "Not applicable (not a performance result)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs / captured output
+      render: shell
+    validations:
+      required: false

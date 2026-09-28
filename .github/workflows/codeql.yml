@@ -1,0 +1,35 @@
+name: CodeQL
+
+# Static analysis only. This workflow NEVER downloads model weights,
+# requires a GPU, or runs LLM inference — it performs CodeQL's static
+# security/quality analysis over the Python source in this repo.
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+  schedule:
+    - cron: "23 4 * * 1" # weekly, Monday
+
+jobs:
+  analyze:
+    name: Analyze (python)
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: python
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:python"
