@@ -1,0 +1,51 @@
+# Secrets / environment
+.env
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Model weights / large artifacts — NEVER commit these.
+models/
+*.gguf
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+*.onnx
+checkpoints/
+outputs/
+
+# Hugging Face / model caches
+.cache/
+huggingface/
+hf_cache/
+
+# Colab/Kaggle scratch
+*.ipynb_checkpoints/
+sample_data/
+kaggle_working/
+
+# Benchmark scratch (keep curated results under experiments/**/results/ if committed intentionally)
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

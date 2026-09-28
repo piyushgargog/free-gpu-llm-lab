@@ -1,0 +1,28 @@
+# Core (safe to install on a local dev machine — no GPU/model deps).
+python-dotenv>=1.0
+
+# ---------------------------------------------------------------------------
+# Everything below this line is ONLY needed in a REMOTE GPU environment
+# (Google Colab / Kaggle) where models are actually downloaded and run.
+#
+# Do NOT install the gpu/llama-cpp groups on a personal PC that must never
+# download or load LLM weights. See README.md and docs/colab.md.
+# ---------------------------------------------------------------------------
+
+# --- transformers-based experiments (Qwen3, Gemma 3) ---
+# torch>=2.4
+# transformers>=4.44
+# accelerate>=0.33
+# bitsandbytes>=0.43
+# huggingface_hub>=0.24
+
+# --- llama.cpp-based experiments (Gemma 4 GGUF, Muse Glimmer) ---
+# llama-cpp-python   # build with CMAKE_ARGS="-DGGML_CUDA=on" for GPU offload
+
+# --- Gradio chatbot + web-augmented retrieval ---
+# gradio>=4.0
+# ddgs>=1.0
+# trafilatura>=1.9
+
+# --- dev / local testing only ---
+pytest>=8.0

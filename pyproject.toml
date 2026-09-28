@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "free-gpu-llm-lab"
+version = "0.1.0"
+description = "How far can we push open-weight LLM inference using free GPU compute (Colab/Kaggle)?"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Piyush Garg", email = "piyushgargxd@gmail.com" }]
+
+# NOTE: Heavy/GPU dependencies (torch, transformers, bitsandbytes, llama-cpp-python)
+# are only required in the REMOTE Colab/Kaggle environment where models are actually
+# loaded and run. Modules in src/free_gpu_llm import them lazily (inside functions),
+# so this package can be installed and unit-tested on a local machine WITHOUT CUDA
+# and without ever downloading model weights.
+dependencies = [
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+# Installed in Colab/Kaggle for actual model experiments. Do not install on a
+# personal PC that should never download/load LLM weights.
+gpu = [
+    "torch>=2.4",
+    "transformers>=4.44",
+    "accelerate>=0.33",
+    "bitsandbytes>=0.43",
+    "huggingface_hub>=0.24",
+]
+llama-cpp = [
+    "llama-cpp-python",
+]
+web = [
+    "gradio>=4.0",
+    "ddgs>=1.0",
+    "trafilatura>=1.9",
+]
+dev = [
+    "pytest>=8.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/free_gpu_llm"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
